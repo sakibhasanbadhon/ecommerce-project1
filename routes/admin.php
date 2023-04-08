@@ -11,9 +11,10 @@ use App\Http\Controllers\Backend\DashboardController;
 
 Route::prefix('app')->name('app.')->middleware(['auth','is_verify','Permission'])->group(function(){
     Route::get('/',[DashboardController::class, 'dashboard'])->name('dashboard');
-    route::resource('roles', RoleController::class)->except('destroy'); // akane resource route er destroy route off kora holo
 
-    Route::get('roles/delete/{id}', [RoleController::class, 'destroy'])->name('roles.destroy');
+    route::resource('roles', RoleController::class)->except('show','destroy');
+
+    Route::post('roles/destroy', [RoleController::class,'destroy'])->name('roles.destroy');
 
     Route::resource('user', UserManageController::class);
 

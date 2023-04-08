@@ -290,8 +290,8 @@
     <!-- END PAGA BACKDROPS-->
 
     <!-- CORE PLUGINS-->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
-    {{-- <script src="{{ asset('backend') }}/assets/vendors/jquery/dist/jquery.min.js" type="text/javascript"></script> --}}
+    {{-- <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script> --}}
+    <script src="{{ asset('backend') }}/assets/vendors/jquery/dist/jquery.min.js" type="text/javascript"></script>
 
     {{-- =================== Datatables Script ================== --}}
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
@@ -305,7 +305,7 @@
     <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.colVis.min.js"></script>
 
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('backend') }}/assets/vendors/popper.js/dist/umd/popper.min.js" type="text/javascript"></script>
     <script src="{{ asset('backend') }}/assets/vendors/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="{{ asset('backend') }}/assets/vendors/metisMenu/dist/metisMenu.min.js" type="text/javascript"></script>
@@ -326,9 +326,38 @@
         var _token = "{{ csrf_token() }}";
     </script>
 
+
     @stack('scripts')
 
+    <script>
+        var table; // role er index er table ata
 
+        function datetable(row_id,url){
+            Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirm'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: url,
+                        type: "post",
+                        data:{_token:_token,row_id:row_id},
+                        success: function (response) {
+                            if (response.status =='success') {
+                                table.ajax.reload();
+                                $('.alert-message').append('<div class="alert alert-success py-2">'+response.message+'</div>')
+                            }
+                        }
+                    });
+                }
+            })
+        }
+    </script>
 </body>
 
 

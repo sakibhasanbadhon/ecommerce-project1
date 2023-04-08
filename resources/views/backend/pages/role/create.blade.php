@@ -5,7 +5,7 @@
 @endpush
 
 @section('action')
-    <a href="{{ route('app.roles.create') }}" class="btn btn-sm btn-primary">Add New</a>
+    <a href="{{ route('app.roles.index') }}" class="btn btn-sm btn-primary"> <i class="fa fa-list"> Role list </i> </a>
 @endsection
 
 @section('content')

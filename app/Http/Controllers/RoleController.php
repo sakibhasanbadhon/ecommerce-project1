@@ -35,8 +35,8 @@ class RoleController extends Controller
                 ->addIndexColumn()
                 ->addColumn('operation', function($role){
                     $operation = '
-                        <a id="edit-btn" href="javascript:void(0)" class="btn-style btn-style-edit"> <i class="fa fa-edit"> </i></a>
-                        <button id="delete-btn" class="btn-style btn-style-danger"> <i class="fa fa-trash"></i> </button>
+                        <a href="'.route('app.roles.edit',$role->id).'" id="editBtn" class="btn-style btn-style-edit"> <i class="fa fa-edit"> </i></a>
+                        <button class="btn-style btn-style-danger deleteBtn" data-id="'.$role->id.'"> <i class="fa fa-trash"></i> </button>
                     ';
                     return $operation;
                 })
@@ -89,7 +89,9 @@ class RoleController extends Controller
     {
         $role = Role::findOrFail($id);
         $modules = Module::with('permissions')->get();
-        return view('backend.pages.role.edit',['role'=>$role,'modules'=>$modules]);
+        $breadcrumb = ['Dashboard'=>route('app.dashboard'),'Roles'=>route('app.roles.index'),'Edit'=>''];
+        pageTitle('Update Role');
+        return view('backend.pages.role.edit',['role'=>$role,'modules'=>$modules,'breadcrumb'=>$breadcrumb]);
     }
 
 
@@ -108,12 +110,19 @@ class RoleController extends Controller
 
 
 
-    public function destroy($role_id)
+    public function destroy(Request $request)
     {
-
-        Role::findOrFail($role_id)->delete();
-
-        return back()->with('success','Product has been remove.');
+        if ($request->ajax()) {
+            $role = Role::find($request->row_id);
+            if($role){
+                $role->delete();
+                $output = ['status'=>'success','message'=>'Role has been deleted successfully'];
+            }else{
+                $output = ['status'=>'error','message'=>'Somthing Wrong!'];
+            }
+            
+            return response()->json($output);
+        }
     }
 
 

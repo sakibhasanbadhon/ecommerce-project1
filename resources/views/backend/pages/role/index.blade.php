@@ -15,8 +15,10 @@
 @section('content')
 
     <div class="row">
+
         <div class="col-12">
             <div class="ibox">
+                <span class="alert-message mb-3"></span>
                 <div class="ibox-head">
                     <div class="ibox-title">{{ $title }}</div>
 
@@ -43,8 +45,8 @@
     </div>
 
 
-<p>sakib</p>
 
+<button id="test"> Test</button>
 
 
 
@@ -53,33 +55,7 @@
 @push('scripts')
 
     <script>
-
-        $(document).ready(function () {
-            $("#delete-btn").click(function (e) {
-                e.preventDefault();
-                alert('hi');
-
-            });
-        });
-
-        // $('#role-datatables tbody').on('click', 'tr', function () {
-
-        // // Check for 'selected' class and remove
-        // if ($(this).hasClass('selected')) {
-        //     $(this).removeClass('selected');
-        // }
-        // else {
-        //     mytableVar.$('tr.selected').removeClass('selected');
-        //     $(this).addClass('selected');
-        // }
-        // });
-
-
-
-    </script>
-
-    <script>
-        var table = $('#role-datatables').DataTable({
+        table = $('#role-datatables').DataTable({
             processing: true,
             serverSide: true,
             order: [], //Initial no order
@@ -168,6 +144,12 @@
                     }
                 ]
             }
+        });
+
+        $(document).on('click', '.deleteBtn', function(){
+            let row_id = $(this).data('id');
+            let url = "{{ route('app.roles.destroy') }}";
+            datetable(row_id,url)
         });
     </script>
 
