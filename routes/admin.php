@@ -12,13 +12,13 @@ use App\Http\Controllers\Backend\DashboardController;
 Route::prefix('app')->name('app.')->middleware(['auth','is_verify','Permission'])->group(function(){
     Route::get('/',[DashboardController::class, 'dashboard'])->name('dashboard');
 
-    route::resource('roles', RoleController::class)->except('show','destroy');
-
+    Route::resource('roles', RoleController::class)->except('show','destroy');
+    Route::post('roles/get-data', [RoleController::class, 'getData'])->name('roles.get-data');
     Route::post('roles/destroy', [RoleController::class,'destroy'])->name('roles.destroy');
 
-    Route::resource('user', UserManageController::class);
+    Route::resource('users', UserManageController::class);
+    Route::post('users/get-data', [UserManageController::class, 'getData'])->name('users.get-data');
 
-    Route::post('roles/get-data', [RoleController::class, 'getData'])->name('roles.get-data');
 
 
 });

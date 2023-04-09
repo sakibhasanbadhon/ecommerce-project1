@@ -62,9 +62,12 @@
                         </li>
                     @endpermission
 
-                    <li>
-                        <a href="{{ route('app.user.index') }}"> User </a>
-                    </li>
+                    @permission('app.users.index')
+                        <li>
+                            <a href="{{ route('app.users.index') }}"> User </a>
+                        </li>
+                    @endpermission
+
                     <li>
                         <a href="form_masks.html">Form input masks</a>
                     </li>

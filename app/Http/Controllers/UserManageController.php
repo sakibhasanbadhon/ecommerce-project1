@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
+
+use DataTables;
 
 class UserManageController extends Controller
 {
@@ -16,10 +19,47 @@ class UserManageController extends Controller
      */
     public function index()
     {
+        // $role= Gate::authorize('app.dashboard');
         $user = User::with('role')->whereNotIn('role_id',[1,3])->get();
-
-        return view('backend.pages.user.index',['users'=>$user]);
+        pageTitle('User List');
+        $breadcrumb = ['Dashboard'=>route('app.dashboard'), 'User'=>''];
+        return view('backend.pages.user.index',['users'=>$user,'breadcrumb'=>$breadcrumb]);
     }
+
+
+    /**
+     * DataTables
+     */
+
+     public function getData(Request $request){
+        if ($request->ajax()) {
+            $getData = User::with('role')->whereNOtIn('role_id',[1,3])->latest('id');
+
+            return DataTables::eloquent($getData)
+                ->addIndexColumn()
+                ->addColumn('operation', function($user){
+                    $operation = '
+                        <a href="" id="editBtn" class="btn-style btn-style-edit"> <i class="fa fa-edit"> </i></a>
+                        <button class="btn-style btn-style-danger deleteBtn" data-id="'.$user->id.'"> <i class="fa fa-trash"></i> </button>
+                    ';
+                    return $operation;
+                })
+                ->addColumn('role', function($user){
+                    return $user->role ? $user->role->name : 'N/A';
+                })
+
+
+
+                ->addColumn('created_at', function($user){
+                    return date_formats('d-m-Y',$user->created_at);
+                })
+                ->rawColumns(['operation'])
+                ->make(true);
+
+        }
+    }
+
+
 
     /**
      * Show the form for creating a new resource.

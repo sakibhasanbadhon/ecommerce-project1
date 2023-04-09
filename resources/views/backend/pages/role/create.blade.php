@@ -27,7 +27,12 @@
             </div>
             <div class="row mb-5">
                 <div class="col-sm-12">
-                    <button class="btn btn-primary">Check all</button>
+                    <div class="form-group">
+                        <label class="ui-checkbox">
+                            <input id="check-all-button" type="checkbox" name="checkbox">
+                            <span class="input-span"></span>Select All
+                        </label>
+                    </div>
                 </div>
             </div>
 
@@ -61,5 +66,24 @@
 @endsection
 
 @push('scripts')
+
+    <script>
+
+        $(document).on('click','#check-all-button',function () {
+            if (this.checked) {
+                $(':checkbox').each(function() {
+                    this.checked = true;
+                })
+            } else {
+                $(':checkbox').each(function() {
+                    this.checked = false;
+                })
+            }
+        })
+
+
+
+    </script>
+
 
 @endpush

@@ -5,7 +5,7 @@
 @endpush
 
 @section('action')
-    <a href="{{ route('app.roles.create') }}" class="btn btn-sm btn-primary">Add New</a>
+    <a href="{{ route('app.users.index') }}" class="btn btn-sm btn-primary"> <i class="fa fa-list"></i> User List</a>
 @endsection
 
 @section('content')
@@ -16,7 +16,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-sm-8 mx-auto">
-                    <form action="{{ route('app.user.store') }}" method="POST">
+                    <form action="{{ route('app.users.store') }}" method="POST">
                         @csrf
 
                         <div class="md-3 py-2">

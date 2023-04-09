@@ -22,7 +22,6 @@ class RoleController extends Controller
         $role= Gate::authorize('app.dashboard'); //database a permission na thakle admin ke dashboard access korte dibe na.
         $breadcrumb = ['Dashboard'=>route('app.dashboard'),'Roles'=>''];
         pageTitle('Roles');
-
         return view('backend.pages.role.index',['role'=>$role,'breadcrumb'=>$breadcrumb]);
 
     }
@@ -120,7 +119,7 @@ class RoleController extends Controller
             }else{
                 $output = ['status'=>'error','message'=>'Somthing Wrong!'];
             }
-            
+
             return response()->json($output);
         }
     }
