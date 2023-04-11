@@ -30,7 +30,7 @@
 
             <div class="row">
                 @foreach ($modules as $module)
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <h4 class="mb-0">{{ $module->name }}</h4>
                     @foreach ($module->permissions as $permission)
                     <div class="form-group">

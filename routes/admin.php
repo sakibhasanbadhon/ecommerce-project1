@@ -18,7 +18,7 @@ Route::prefix('app')->name('app.')->middleware(['auth','is_verify','Permission']
 
     Route::resource('users', UserManageController::class);
     Route::post('users/get-data', [UserManageController::class, 'getData'])->name('users.get-data');
-
+    Route::post('users/destroy', [UserManageController::class, 'destroy'])->name('users.destroy');
 
 
 });

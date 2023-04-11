@@ -39,7 +39,7 @@ class UserManageController extends Controller
                 ->addIndexColumn()
                 ->addColumn('operation', function($user){
                     $operation = '
-                        <a href="" id="editBtn" class="btn-style btn-style-edit"> <i class="fa fa-edit"> </i></a>
+                        <a href="'.route('app.roles.edit',$user->id).'" id="editBtn" class="btn-style btn-style-edit"> <i class="fa fa-edit"> </i></a>
                         <button class="btn-style btn-style-danger deleteBtn" data-id="'.$user->id.'"> <i class="fa fa-trash"></i> </button>
                     ';
                     return $operation;
@@ -148,8 +148,20 @@ class UserManageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        //return $request;
+
+        if ($request->ajax()) {
+            $user = User::find($request->row_id);
+            if($user){
+                $user->delete();
+                $output = ['status'=>'success','message'=>'Role has been deleted successfully'];
+            }else{
+                $output = ['status'=>'error','message'=>'Something Wrong!'];
+            }
+
+            return response()->json($output);
+        }
     }
 }

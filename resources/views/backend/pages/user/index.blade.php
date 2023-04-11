@@ -28,21 +28,6 @@
                         </thead>
                         <tbody>
 
-                            {{-- @foreach ($users as $item)
-                                <tr>
-                                    <td>{{ $item->role->name }} </td>
-                                    <td>{{ $item->first_name }}</td>
-                                    <td>{{ $item->last_name }}</td>
-                                    <td>{{ $item->email  }}</td>
-
-                                    <td>
-                                        <button class="btn btn-primary"> <span class="fa fa-edit"></span></button>
-                                        <button class="btn btn-danger"><span class="fa fa-trash"></span></button>
-                                    </td>
-
-                                </tr>
-                            @endforeach --}}
-
 
                         </tbody>
                     </table>
@@ -152,9 +137,10 @@
 
         $(document).on('click', '.deleteBtn', function(){
             let row_id = $(this).data('id');
-            let url = "{{ route('app.roles.destroy') }}";
+            let url = "{{ route('app.users.destroy') }}";
             datetable(row_id,url)
         });
+
     </script>
 
 

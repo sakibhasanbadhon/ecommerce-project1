@@ -81,7 +81,7 @@ class RoleController extends Controller
 
         $role->permissions()->attach($request->permission);
 
-        return back();
+        return back()->with('success','Role Has been saved.');
     }
 
     public function edit($id)
@@ -117,7 +117,7 @@ class RoleController extends Controller
                 $role->delete();
                 $output = ['status'=>'success','message'=>'Role has been deleted successfully'];
             }else{
-                $output = ['status'=>'error','message'=>'Somthing Wrong!'];
+                $output = ['status'=>'error','message'=>'Something Wrong!'];
             }
 
             return response()->json($output);

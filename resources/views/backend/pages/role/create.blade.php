@@ -12,6 +12,7 @@
 
 
 <div class="card">
+    <x-errorMessage/>
     <div class="card-body">
         <form action="{{ route('app.roles.store') }}" method="post">
             @csrf
