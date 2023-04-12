@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Module;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -39,7 +40,7 @@ class UserManageController extends Controller
                 ->addIndexColumn()
                 ->addColumn('operation', function($user){
                     $operation = '
-                        <a href="'.route('app.roles.edit',$user->id).'" id="editBtn" class="btn-style btn-style-edit"> <i class="fa fa-edit"> </i></a>
+                        <a href="'.route('app.users.edit',$user->id).'" id="editBtn" class="btn-style btn-style-edit"> <i class="fa fa-edit"> </i></a>
                         <button class="btn-style btn-style-danger deleteBtn" data-id="'.$user->id.'"> <i class="fa fa-trash"></i> </button>
                     ';
                     return $operation;
@@ -127,7 +128,15 @@ class UserManageController extends Controller
      */
     public function edit($id)
     {
-        //
+        $users = User::findOrFail($id);
+        // $hash = Hash::make($users->password);
+        // return $hash;
+        $role_id = Role::whereNotIn('id',[1,3])->get();
+        // $role_id = Role::latest('id')->where('id',$id)->get();
+
+        $modules = Module::with('permissions')->get();
+        $breadcrumb = ['Dashboard'=> route('app.dashboard'), 'Users'=>route('app.users.index'), 'Edit'=>''];
+        return view('backend.pages.user.edit', ['users'=>$users, 'roles'=>$role_id, 'modules'=>$modules, 'breadcrumb'=>$breadcrumb]);
     }
 
     /**
