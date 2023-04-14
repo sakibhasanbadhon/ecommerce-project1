@@ -12,8 +12,9 @@
 
 
 <div class="card">
+    <x-errorMessage/>
     <div class="card-body">
-        <form action="{{ route('app.users.store') }}" method="POST">
+        <form action="{{ route('app.users.update',$users->id) }}" method="POST">
             @csrf
             @method('PUT')
             <div class="row">
@@ -43,23 +44,6 @@
                     </div>
 
                     <div class="mb-3 py-2">
-                        <strong><label for="password" class="form-label">Password</label></strong>
-                        <input type="text" name="password" value="{{ $users->password }}" class="form-control p-3" id="password">
-                            @error('password')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                    </div>
-
-                    <div class="mb-3 py-2">
-                        <strong><label for="confirm_password" class="form-label">Confirm password</label></strong>
-                        <input type="text" name="password_confirmation" value="{{ $users->password }}" class="form-control p-3" id="confirm_password">
-
-                            @error('password_confirmation')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                    </div>
-
-                    <div class="mb-3 py-2">
                         <strong><label for="phone_no" class="form-label">Phone</label></strong>
                         <input type="text" name="phone" value="{{ $users->phone_no }}" class="form-control p-3" id="phone">
                     </div>
@@ -73,13 +57,25 @@
                         <strong><label for="role_id" class="form-label">Role Name</label></strong>
                         <select class="form-control form-control" name="role_id" id="role_id" aria-label="Default select example">
                             <option value="" >Select Role id</option>
-                            @foreach ($roles as $item)
-                                <option value=""> {{ $item->name }} </option>
+                            @foreach ($roles as $role)
+                                <option value="{{ $role->id }}" {{ $users->role_id == $role->id ? 'selected' : '' }} > {{ $role->name }} </option>
                             @endforeach
                         </select>
                             @error('role_id')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
+                    </div>
+
+                    <div class="md-3 py-2">
+                        <strong><label for="status" class="form-label"> Status</label></strong>
+                        <select class="form-control form-control" name="status" id="status" aria-label="Default select example">
+                            <option value="1" {{ $users->status == 1 ? 'selected' : '' }} > Active </option>
+                            <option value="0" {{ $users->status == 0 ? 'selected' : '' }}> Pending </option>
+                        </select>
+
+                        @error('status')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <div class="md-3 py-2">

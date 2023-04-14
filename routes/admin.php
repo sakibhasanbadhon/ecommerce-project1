@@ -20,8 +20,10 @@ Route::prefix('app')->name('app.')->middleware(['auth','is_verify','Permission']
     Route::post('users/get-data', [UserManageController::class, 'getData'])->name('users.get-data');
     Route::post('users/destroy', [UserManageController::class, 'destroy'])->name('users.destroy');
 
-
 });
 
 
+Route::get('welcome',function(){
+    return view('welcome');
+});
 

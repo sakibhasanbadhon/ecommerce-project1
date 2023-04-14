@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Module;
+use DataTables;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Module;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
-
-use DataTables;
 
 class UserManageController extends Controller
 {
@@ -70,7 +71,8 @@ class UserManageController extends Controller
     public function create()
     {
         $role_id = Role::whereNotIn('id',[1,3])->get();
-        return view('backend.pages.user.create',['roles'=>$role_id]);
+        $breadcrumb = ['Dashboard'=> route('app.dashboard'), 'Users' => route('app.users.index'), 'Create'=>''];
+        return view('backend.pages.user.create',['roles'=>$role_id, 'breadcrumb'=>$breadcrumb]);
     }
 
     /**
@@ -92,14 +94,14 @@ class UserManageController extends Controller
         ]);
 
 
-        $role = User::create([
+        $users = User::create([
             'role_id'    => $request->role_id,
             'first_name' => $request->first_name,
             'last_name'  => $request->last_name,
             'email'      => $request->email,
             'password'   => $request->password,
             'password'   => Hash::make($request->password),
-            'phone'      => $request->phone
+            'phone_no'   => $request->phone
         ]);
 
 
@@ -128,12 +130,16 @@ class UserManageController extends Controller
      */
     public function edit($id)
     {
-        $users = User::findOrFail($id);
         // $hash = Hash::make($users->password);
         // return $hash;
-        $role_id = Role::whereNotIn('id',[1,3])->get();
-        // $role_id = Role::latest('id')->where('id',$id)->get();
 
+        // $hashedPassword = Auth::user()->getAuthPassword();
+        // if (Hash::check('password', $hashedPassword)) {
+        //     dd($hashedPassword);
+        // }
+
+        $users = User::findOrFail($id);
+        $role_id = Role::whereNotIn('id',[1,3])->get();
         $modules = Module::with('permissions')->get();
         $breadcrumb = ['Dashboard'=> route('app.dashboard'), 'Users'=>route('app.users.index'), 'Edit'=>''];
         return view('backend.pages.user.edit', ['users'=>$users, 'roles'=>$role_id, 'modules'=>$modules, 'breadcrumb'=>$breadcrumb]);
@@ -148,7 +154,32 @@ class UserManageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $users = User::findOrFail($id);
+
+        $validation = $request->validate([
+            'role_id'    => 'required',
+            'first_name' => 'required|',
+            'last_name'  => 'required',
+            'email'      => 'required|email|max:50|nullable',
+            'phone'      => 'required',
+            'status'     => 'required','in:0,1'
+        ]);
+
+        $users->update([
+            'role_id'    => $request->role_id,
+            'first_name' => $request->first_name,
+            'last_name'  => $request->last_name,
+            'email'      => $request->email,
+            'phone_no'   => $request->phone,
+            'status'     => $request->status
+        ]);
+
+
+        return back()->with('success','User update success.');
+
+
+
+
     }
 
     /**

@@ -28,6 +28,7 @@ class User extends Authenticatable
             'provider',
             'provider_id',
             'avatar',
+            'status',
             'is_approved'
     ];
 
