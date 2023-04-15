@@ -9,7 +9,9 @@
 @endpush
 
 @section('action')
-    <a href="{{ route('app.roles.create') }}" class="btn btn-sm btn-primary">Add New</a>
+    @can('role-create', Auth::user())
+        <a href="{{ route('app.roles.create') }}" class="btn btn-sm btn-primary">Add New</a>
+    @endcan
 @endsection
 
 @section('content')

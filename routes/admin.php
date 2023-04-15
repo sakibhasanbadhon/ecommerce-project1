@@ -9,7 +9,7 @@ use App\Http\Controllers\Backend\DashboardController;
 
  //========== Auth Dashboard ================
 
-Route::prefix('app')->name('app.')->middleware(['auth','is_verify','Permission'])->group(function(){
+Route::prefix('app')->name('app.')->middleware(['auth','is_verify','Permission','admin_switch'])->group(function(){
     Route::get('/',[DashboardController::class, 'dashboard'])->name('dashboard');
 
     Route::resource('roles', RoleController::class)->except('show','destroy');
