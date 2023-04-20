@@ -18,43 +18,11 @@
 
             <li class="heading">FEATURES</li>
 
-            {{-- <li>
-                <a href="javascript:;"><i class="sidebar-item-icon fa fa-bookmark"></i>
-                    <span class="nav-label">Basic UI</span><i class="fa fa-angle-left arrow"></i></a>
-                <ul class="nav-2-level collapse">
-                    <li>
-                        <a href="colors.html">Colors</a>
-                    </li>
-                    <li>
-                        <a href="">User</a>
-                    </li>
-                    <li>
-                        <a href="panels.html">Panels</a>
-                    </li>
-                    <li>
-                        <a href="buttons.html">Buttons</a>
-                    </li>
-                    <li>
-                        <a href="tabs.html">Tabs</a>
-                    </li>
-                    <li>
-                        <a href="alerts_tooltips.html">Alerts &amp; Tooltips</a>
-                    </li>
-                    <li>
-                        <a href="badges_progress.html">Badges &amp; Progress</a>
-                    </li>
-                    <li>
-                        <a href="lists.html">List</a>
-                    </li>
-                    <li>
-                        <a href="cards.html">Card</a>
-                    </li>
-                </ul>
-            </li> --}}
+
 
             <li>
                 <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
-                    <span class="nav-label">Forms</span><i class="fa fa-angle-left arrow"></i></a>
+                    <span class="nav-label">Permission</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
                     @permission('app.roles.index')
                         <li>
@@ -76,6 +44,41 @@
                     </li>
                     <li>
                         <a href="text_editors.html">Text Editors</a>
+                    </li>
+                </ul>
+            </li>
+
+
+            <li>
+                <a href="javascript:;"><i class="sidebar-item-icon fa fa-bookmark"></i>
+                    <span class="nav-label">Products</span><i class="fa fa-angle-left arrow"></i></a>
+                <ul class="nav-2-level collapse">
+                    <li>
+                        <a href="colors.html">All Products</a>
+                    </li>
+                    <li>
+                        <a href="">All Categories</a>
+                    </li>
+                    <li>
+                        <a href="panels.html">All Brands</a>
+                    </li>
+                    <li>
+                        <a href="buttons.html">Buttons</a>
+                    </li>
+                    <li>
+                        <a href="tabs.html">Tabs</a>
+                    </li>
+                    <li>
+                        <a href="alerts_tooltips.html">Alerts &amp; Tooltips</a>
+                    </li>
+                    <li>
+                        <a href="badges_progress.html">Badges &amp; Progress</a>
+                    </li>
+                    <li>
+                        <a href="lists.html">List</a>
+                    </li>
+                    <li>
+                        <a href="cards.html">Card</a>
                     </li>
                 </ul>
             </li>
