@@ -22,6 +22,7 @@
                                 <th> id </th>
                                 <th> Role </th>
                                 <th> First Name </th>
+                                <th> Permission </th>
                                 <th>Created_at</th>
                                 <th>Operation</th>
                             </tr>
@@ -70,6 +71,7 @@
                 {data: 'id'},
                 {data: 'role'},
                 {data: 'first_name'},
+                {data: 'status'},
                 {data: 'created_at'},
                 {data: 'operation'},
             ],

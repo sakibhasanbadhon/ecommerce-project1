@@ -66,9 +66,10 @@ class RoleController extends Controller
 
     public function create()
     {
+        $roleCreate= Gate::authorize('app.roles.create'); //database a permission na thakle admin ke dashboard access korte dibe na.
         $modules = Module::with('permissions')->get();
         $breadcrumb = ['Dashboard'=>route('app.dashboard'),'Roles'=>route('app.roles.index'),'Create'=>''];
-        return view('backend.pages.role.create',['modules'=>$modules, 'breadcrumb'=>$breadcrumb]);
+        return view('backend.pages.role.create',['roleCreate'=>$roleCreate,'modules'=>$modules, 'breadcrumb'=>$breadcrumb]);
     }
 
 

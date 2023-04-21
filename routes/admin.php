@@ -16,9 +16,11 @@ Route::prefix('app')->name('app.')->middleware(['auth','is_verify','Permission',
     Route::post('roles/get-data', [RoleController::class, 'getData'])->name('roles.get-data');
     Route::post('roles/destroy', [RoleController::class,'destroy'])->name('roles.destroy');
 
-    Route::resource('users', UserManageController::class);
+    Route::resource('users', UserManageController::class)->except('show','destroy');
     Route::post('users/get-data', [UserManageController::class, 'getData'])->name('users.get-data');
     Route::post('users/destroy', [UserManageController::class, 'destroy'])->name('users.destroy');
+
+    Route::resource('brands', BrandController::class);
 
 });
 

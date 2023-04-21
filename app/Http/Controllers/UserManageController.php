@@ -50,12 +50,19 @@ class UserManageController extends Controller
                     return $user->role ? $user->role->name : 'N/A';
                 })
 
+                ->addColumn('status', function($user){
+                    $status = '
+                        <span class="badge rounded-pill bg-danger">Active</span>
+                    ';
+                    return $status;
+                })
+
 
 
                 ->addColumn('created_at', function($user){
                     return date_formats('d-m-Y',$user->created_at);
                 })
-                ->rawColumns(['operation'])
+                ->rawColumns(['operation','status'])
                 ->make(true);
 
         }
@@ -130,13 +137,6 @@ class UserManageController extends Controller
      */
     public function edit($id)
     {
-        // $hash = Hash::make($users->password);
-        // return $hash;
-
-        // $hashedPassword = Auth::user()->getAuthPassword();
-        // if (Hash::check('password', $hashedPassword)) {
-        //     dd($hashedPassword);
-        // }
 
         $users = User::findOrFail($id);
         $role_id = Role::whereNotIn('id',[1,3])->get();
