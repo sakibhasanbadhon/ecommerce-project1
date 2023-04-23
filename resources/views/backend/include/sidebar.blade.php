@@ -60,7 +60,7 @@
                         <a href="">All Categories</a>
                     </li>
                     <li>
-                        <a href="panels.html">All Brands</a>
+                        <a href="{{ route('app.brands.index') }}">All Brands</a>
                     </li>
                     <li>
                         <a href="buttons.html">Buttons</a>
