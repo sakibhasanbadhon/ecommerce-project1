@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Brand;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use DataTables;
 
 class BrandController extends Controller
 {
@@ -20,6 +21,49 @@ class BrandController extends Controller
         return view('backend.pages.brand.index',['breadcrumb'=>$breadcrumb]);
     }
 
+
+
+    /**
+     * DataTables
+     */
+
+     public function getData(Request $request){
+        if ($request->ajax()) {
+            $getData = Brand::orderBy('id','desc');
+
+            return DataTables::eloquent($getData)
+                ->addIndexColumn()
+                ->addColumn('operation', function($brands){
+                    $operation = '
+                        <a href="'.route('app.brands.edit',$brands->id).'" id="editBtn" class="btn-style btn-style-edit"> <i class="fa fa-edit"> </i></a>
+                        <button class="btn-style btn-style-danger deleteBtn" data-id="'.$brands->id.'"> <i class="fa fa-trash"></i> </button>
+                    ';
+                    return $operation;
+                })
+
+                ->addColumn('status', function($brands){
+                    $status ='';
+                    if($brands->status == 1){
+                        $status .= '<span class="badge rounded-pill bg-success">Active</span>';
+                    }
+                    else{
+                        $status .= '<span class="badge rounded-pill bg-danger">Pending</span>';
+                    }
+                    return $status;
+                })
+
+
+
+
+                ->addColumn('created_at', function($brands){
+                    return date_formats('d-m-Y',$brands->created_at);
+                })
+                ->rawColumns(['operation','status'])
+                ->make(true);
+
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -27,7 +71,9 @@ class BrandController extends Controller
      */
     public function create()
     {
-        return view('backend.pages.brand.create');
+        pageTitle('Brand List');
+        $breadcrumb = ['Dashboard'=>route('app.dashboard'),'Brands'=>route('app.brands.create'),'create'=>''];
+        return view('backend.pages.brand.create',['breadcrumb'=>$breadcrumb]);
     }
 
     /**
@@ -55,10 +101,10 @@ class BrandController extends Controller
         }
 
         $brands = Brand::create([
-            'name'   => 'brand_name',
+            'name'   => $request->brand_name,
             'slug'   => Str::slug($request->brand_name),
-            'image'  => 'image',
-            'status' => 'brand_status',
+            'image'  => $imageName,
+            'status' => $request->brand_status,
         ]);
 
         return back()->with('success','Brand has been Saved');

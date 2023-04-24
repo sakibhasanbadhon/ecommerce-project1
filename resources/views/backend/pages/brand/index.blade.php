@@ -24,7 +24,7 @@
             <div class="ibox">
                 <span class="alert-message mb-3"></span>
                 <div class="ibox-head">
-                    <div class="ibox-title"> jhhdfhfgd </div>
+                    <div class="ibox-title"> {{ $title }} </div>
 
                 </div>
                 <div class="ibox-body px-0">
@@ -32,10 +32,10 @@
                         <thead>
                             <tr>
                                 <th>SL</th>
-                                <th>Role Name</th>
-                                <th>Note</th>
+                                <th>Image</th>
+                                <th> Brand Name </th>
                                 <th>Permission</th>
-                                <th>Created_at</th>
+                                <th>Date</th>
                                 <th>Operation</th>
                             </tr>
                         </thead>
@@ -82,9 +82,9 @@
             },
             columns: [
                 {data: 'id'},
+                {data: 'image'},
                 {data: 'name'},
-                {data: 'note'},
-                {data: 'permission'},
+                {data: 'status'},
                 {data: 'created_at'},
                 {data: 'operation'},
             ],

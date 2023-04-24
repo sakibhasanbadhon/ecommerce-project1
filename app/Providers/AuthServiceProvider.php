@@ -32,5 +32,11 @@ class AuthServiceProvider extends ServiceProvider
             }
         });
 
+        Gate::define('user-create', function($user){
+            if($user->first_name == 'Super'){
+                return true;
+            }
+        });
+
     }
 }

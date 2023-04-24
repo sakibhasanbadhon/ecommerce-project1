@@ -5,7 +5,7 @@
 @endpush
 
 @section('action')
-    <a href="{{ route('app.roles.index') }}" class="btn btn-sm btn-primary"> <i class="fa fa-list"> Role list </i> </a>
+    <a href="{{ route('app.brands.index') }}" class="btn btn-sm btn-primary"> <i class="fa fa-list"> Brands list </i> </a>
 @endsection
 
 @section('content')
@@ -14,7 +14,7 @@
 <div class="card">
     <x-errorMessage/>
     <div class="card-body">
-        <form action="{{ route('app.brands.store') }}" method="POST">
+        <form action="{{ route('app.brands.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-sm-8">
@@ -40,7 +40,7 @@
                             <option value="" >Select Role id</option>
                                 <option value="1">Active</option>
                                 <option value="0">pending</option>
-                                
+
                         </select>
 
                         @error('brand_status')
