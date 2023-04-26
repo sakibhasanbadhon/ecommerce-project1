@@ -54,10 +54,10 @@
                     <span class="nav-label">Products</span><i class="fa fa-angle-left arrow"></i></a>
                 <ul class="nav-2-level collapse">
                     <li>
-                        <a href="colors.html">All Products</a>
+                        <a href="{{ route('app.products.index') }}">All Products</a>
                     </li>
                     <li>
-                        <a href="">All Categories</a>
+                        <a href="{{ route('app.categories.index') }}">All Categories</a>
                     </li>
                     <li>
                         <a href="{{ route('app.brands.index') }}">All Brands</a>

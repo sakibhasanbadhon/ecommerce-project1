@@ -330,7 +330,7 @@
     @stack('scripts')
 
     <script>
-        var table; // role er index er table ata
+        var table; // index page er $table ata
 
         function datetable(row_id,url){
             Swal.fire({

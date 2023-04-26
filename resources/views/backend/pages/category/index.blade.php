@@ -12,7 +12,7 @@
 
 @section('action')
     @can('role-create', Auth::user())
-        <a href="{{ route('app.brands.create') }}" class="btn btn-sm btn-primary"><i class="fa fa-plus pr-2"></i> Add New</a>
+        <a href="{{ route('app.categories.create') }}" class="btn btn-sm btn-primary"><i class="fa fa-plus pr-2"></i> Add New</a>
     @endcan
 @endsection
 
@@ -28,12 +28,12 @@
 
                 </div>
                 <div class="ibox-body px-0">
-                    <table class="table table-sm" id="brand-datatables">
+                    <table class="table table-sm" id="category-datatables">
                         <thead>
                             <tr>
                                 <th>SL</th>
                                 <th>Image</th>
-                                <th> Brand Name </th>
+                                <th> Category Name </th>
                                 <th>Permission</th>
                                 <th>Date</th>
                                 <th>Operation</th>
@@ -59,7 +59,7 @@
 @push('scripts')
 
     <script>
-        table = $('#brand-datatables').DataTable({
+        table = $('#category-datatables').DataTable({
             processing: true,
             serverSide: true,
             order: [], //Initial no order
@@ -73,7 +73,7 @@
             ],
             pageLength: 25, //number of data show per page
             ajax: {
-                url: "{{ route('app.brands.get-data') }}",
+                url: "{{ route('app.categories.get-data') }}",
                 type: "POST",
                 dataType: "JSON",
                 data: function(d) {
@@ -152,7 +152,7 @@
 
         $(document).on('click', '.deleteBtn', function(){
             let row_id = $(this).data('id');
-            let url = "{{ route('app.brands.destroy') }}";
+            let url = "{{ route('app.categories.destroy') }}";
             datetable(row_id,url)
         });
     </script>

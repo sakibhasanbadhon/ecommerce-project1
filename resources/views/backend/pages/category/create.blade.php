@@ -5,7 +5,7 @@
 @endpush
 
 @section('action')
-    <a href="{{ route('app.brands.index') }}" class="btn btn-sm btn-primary"> <i class="fa fa-list"> Brands list </i> </a>
+    <a href="{{ route('app.categories.index') }}" class="btn btn-sm btn-primary"> <i class="fa fa-list"> Category list </i> </a>
 @endsection
 
 @section('content')
@@ -14,36 +14,38 @@
 <div class="card">
     <x-errorMessage/>
     <div class="card-body">
-        <form action="{{ route('app.brands.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('app.categories.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-sm-8">
                     <div class="mb-3 py-2">
-                        <strong><label for="brand_name" class="form-label">Brand Name</label></strong>
-                        <input type="text" name="brand_name" class="form-control p-3" id="brand_name" placeholder="write brand name">
-                        @error('brand_name')
+                        <strong><label for="category_name" class="form-label">category Name</label></strong>
+                        <input type="text" name="category_name" class="form-control p-3" id="category_name" placeholder="write category name">
+                        @error('category_name')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <div class="mb-3 py-2">
-                        <strong><label for="image" class="form-label">Brand Image</label></strong>
+                        <strong><label for="image" class="form-label">Category Image</label></strong>
                         <input type="file" name="image" class="form-control p-3" id="image">
+                        <small class="text-secondary"> File type: image, mimes: jpeg, jpg, png </small>
+
                         @error('image')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <div class="mb-3 py-2">
-                        <strong><label for="brand_status" class="form-label">Status</label></strong>
-                        <select class="form-control form-control" name="brand_status" id="brand_status" aria-label="Default select example">
+                        <strong><label for="category_status" class="form-label">Status</label></strong>
+                        <select class="form-control form-control" name="category_status" id="category_status" aria-label="Default select example">
                             <option value="" > Select Active or Pending</option>
                                 <option value="1">Active</option>
                                 <option value="0">pending</option>
 
                         </select>
 
-                        @error('brand_status')
+                        @error('category_status')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>

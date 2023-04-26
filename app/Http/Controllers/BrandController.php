@@ -71,8 +71,8 @@ class BrandController extends Controller
      */
     public function create()
     {
-        pageTitle('Brand List');
-        $breadcrumb = ['Dashboard'=>route('app.dashboard'),'Brands'=>route('app.brands.create'),'create'=>''];
+        pageTitle('Brand Create');
+        $breadcrumb = ['Dashboard'=>route('app.dashboard'),'Brands'=>route('app.brands.index'),'create'=>''];
         return view('backend.pages.brand.create',['breadcrumb'=>$breadcrumb]);
     }
 
@@ -129,7 +129,10 @@ class BrandController extends Controller
      */
     public function edit($id)
     {
-        //
+        $brands = Brand::find($id);
+        pageTitle('Brand Edit');
+        $breadcrumb = ['Dashboard'=>route('app.dashboard'),'Brands'=>route('app.brands.index'),'Edit'=>''];
+        return view('backend.pages.brand.edit', ['brands'=>$brands,'breadcrumb'=>$breadcrumb]);
     }
 
     /**
@@ -141,7 +144,36 @@ class BrandController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $request->validate([
+            'brand_name'   => 'required',
+            'image'        => 'required',
+            'brand_status' => 'required',
+        ]);
+
+
+        // image upload
+        $brands = Brand::findOrFail($id);
+
+        if ($request->hasFile('image')) {
+            file_exists('backend/assets/img/brand/'.$brands->image) ? unlink('backend/assets/img/brand/'.$brands->image) : false;
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $imageName = uniqid(rand().time()).'.'.$extension;
+            $file->move('backend/assets/img/brand/',$imageName);
+
+        }else {
+            $imageName = $brands->image;
+        }
+
+        $brands->update([
+            'name'   => $request->brand_name,
+            'slug'   => Str::slug($request->brand_name),
+            'image'  => $imageName,
+            'status' => $request->brand_status,
+        ]);
+
+        return back()->with('success','Brand has been Saved');
     }
 
     /**
@@ -150,8 +182,19 @@ class BrandController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        if ($request->ajax()) {
+            $brands = Brand::find($request->row_id);
+            unlink('backend/assets/img/brand/'.$brands->image);
+
+            if ($brands) {
+                $brands->delete();
+                $output = ['status'=>'success', 'message'=>'Brand has been deleted successfully'];
+            }else {
+                $output = ['status'=>'success', 'message'=>'Brand has been deleted successfully'];
+
+            }
+        }
     }
 }
