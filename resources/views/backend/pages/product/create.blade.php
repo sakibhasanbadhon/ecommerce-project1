@@ -96,7 +96,7 @@
                     <div class="md-3 py-2">
                         <label for="category" class="form-label">Category</label>
                         <select name="category_id" id="category" class="form-control p-3">
-                            <option value="">Brand Select</option>
+                            <option value="">Category Select</option>
 
                             @forelse ($data['categories'] as $categryItem)
                                 <option value="{{ $categryItem->id }}"> {{ $categryItem->name }}</option>

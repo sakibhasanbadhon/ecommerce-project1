@@ -19,7 +19,7 @@ class ProductController extends Controller
     public function index()
     {
         pageTitle('Product List');
-        $breadcrumb = ['Dashboard'=>route('app.dashboard'),'Product'=>''];
+        $breadcrumb = ['Dashboard'=>route('app.dashboard'), 'Product'=>''];
 
         return view('backend.pages.product.index', ['breadcrumb'=>$breadcrumb]);
     }
@@ -38,7 +38,7 @@ class ProductController extends Controller
                 ->addIndexColumn()
                 ->addColumn('operation', function($product){
                     $operation = '
-                        <a href="'.route('app.products.edit',$product->id).'" id="editBtn" class="btn-style btn-style-edit"> <i class="fa fa-edit"> </i></a>
+                        <a href="" id="editBtn" class="btn-style btn-style-edit"> <i class="fa fa-edit"> </i></a>
                         <button class="btn-style btn-style-danger deleteBtn" data-id="'.$product->id.'"> <i class="fa fa-trash"></i> </button>
                     ';
                     return $operation;
@@ -61,7 +61,7 @@ class ProductController extends Controller
                 ->addColumn('created_at', function($brands){
                     return date_formats('d-m-Y',$brands->created_at);
                 })
-                ->rawColumns(['operation','status'])
+                ->rawColumns(['operation','status','created_at'])
                 ->make(true);
 
         }
@@ -82,7 +82,9 @@ class ProductController extends Controller
             'categories'=>Category::latest('id')->where('status',1)->get()
         ];
 
-        $breadcrumb =['Dashboard'=> route('app.dashboard'),'Create'=>''];
+
+
+        $breadcrumb =['Dashboard'=> route('app.dashboard'),'Product'=>route('app.products.index'),'Create'=>''];
         pageTitle('Product Create');
 
         //return $data['categories'];
@@ -185,8 +187,7 @@ class ProductController extends Controller
 
         }
 
-
-          $product->update($data);
+        $product->update($data);
 
         return back()->with('success','Brand has been Updated.');
 

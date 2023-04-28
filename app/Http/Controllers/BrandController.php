@@ -41,6 +41,11 @@ class BrandController extends Controller
                     return $operation;
                 })
 
+                ->addColumn('image', function($brands) {
+                    $image = '<img width="80px" height="80px" src="'. asset("backend/assets/img/brand/$brands->image").'" alt="">';
+                    return $image;
+                })
+
                 ->addColumn('status', function($brands){
                     $status ='';
                     if($brands->status == 1){
@@ -58,7 +63,7 @@ class BrandController extends Controller
                 ->addColumn('created_at', function($brands){
                     return date_formats('d-m-Y',$brands->created_at);
                 })
-                ->rawColumns(['operation','status'])
+                ->rawColumns(['operation','status','image'])
                 ->make(true);
 
         }
@@ -147,7 +152,7 @@ class BrandController extends Controller
 
         $request->validate([
             'brand_name'   => 'required',
-            'image'        => 'required',
+            'image'        => 'image|mimes:jpg,jpeg,png',
             'brand_status' => 'required',
         ]);
 
@@ -155,14 +160,14 @@ class BrandController extends Controller
         // image upload
         $brands = Brand::findOrFail($id);
 
-        if ($request->hasFile('image')) {
+        // image upload
+        if ($request->has('image')) {
             file_exists('backend/assets/img/brand/'.$brands->image) ? unlink('backend/assets/img/brand/'.$brands->image) : false;
             $file = $request->file('image');
             $extension = $file->getClientOriginalExtension();
             $imageName = uniqid(rand().time()).'.'.$extension;
             $file->move('backend/assets/img/brand/',$imageName);
-
-        }else {
+        }else{
             $imageName = $brands->image;
         }
 
@@ -192,9 +197,12 @@ class BrandController extends Controller
                 $brands->delete();
                 $output = ['status'=>'success', 'message'=>'Brand has been deleted successfully'];
             }else {
-                $output = ['status'=>'success', 'message'=>'Brand has been deleted successfully'];
+                $output = ['status'=>'error','message'=>'Something Wrong!'];
 
             }
+            return response()->json($output);
         }
+
+
     }
 }

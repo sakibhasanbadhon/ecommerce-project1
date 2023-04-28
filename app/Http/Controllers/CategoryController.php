@@ -42,6 +42,11 @@ class CategoryController extends Controller
                     return $operation;
                 })
 
+                ->addColumn('image', function($category) {
+                    $image = '<img width="80px" height="80px" src="'. asset("backend/assets/img/category/$category->image").'" alt="">';
+                    return $image;
+                })
+
                 ->addColumn('status', function($category){
                     $status ='';
                     if($category->status == 1){
@@ -59,7 +64,7 @@ class CategoryController extends Controller
                 ->addColumn('created_at', function($category){
                     return date_formats('d-m-Y',$category->created_at);
                 })
-                ->rawColumns(['operation','status'])
+                ->rawColumns(['operation','status','image'])
                 ->make(true);
 
         }
@@ -148,7 +153,7 @@ class CategoryController extends Controller
 
         $request->validate([
             'category_name'   => 'required',
-            'image'           => 'required',
+            'image'           => 'image|mimes:jpg,jpeg,png',
             'category_status' => 'required',
         ]);
 
@@ -193,9 +198,10 @@ class CategoryController extends Controller
                 $category->delete();
                 $output = ['status'=>'success', 'message'=>'category has been deleted successfully'];
             }else {
-                $output = ['status'=>'success', 'message'=>'category has been deleted successfully'];
+                $output = ['status'=>'error','message'=>'Something Wrong!'];
 
             }
+            return response()->json($output);
         }
     }
 }

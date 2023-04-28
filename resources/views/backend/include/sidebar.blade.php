@@ -2,7 +2,7 @@
     <div id="sidebar-collapse">
         <div class="admin-block d-flex">
             <div>
-                <img src="{{ asset('backend') }}/assets/img/admin-avatar.png" width="45px" />
+                <img src="{{ asset('backend') }}/assets/img/admin-avatar.png" width="45px"/>
             </div>
             <div class="admin-info">
                 <div class="font-strong"> {{ Auth::user()->first_name }} {{ Auth::user()->last_name }} </div><small>Administrator</small></div>
@@ -36,15 +36,6 @@
                         </li>
                     @endpermission
 
-                    <li>
-                        <a href="form_masks.html">Form input masks</a>
-                    </li>
-                    <li>
-                        <a href="form_validation.html">Form Validation</a>
-                    </li>
-                    <li>
-                        <a href="text_editors.html">Text Editors</a>
-                    </li>
                 </ul>
             </li>
 
@@ -70,12 +61,6 @@
                     </li>
                     <li>
                         <a href="alerts_tooltips.html">Alerts &amp; Tooltips</a>
-                    </li>
-                    <li>
-                        <a href="badges_progress.html">Badges &amp; Progress</a>
-                    </li>
-                    <li>
-                        <a href="lists.html">List</a>
                     </li>
                     <li>
                         <a href="cards.html">Card</a>
