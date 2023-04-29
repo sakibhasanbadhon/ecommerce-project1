@@ -12,7 +12,7 @@
 
 <div class="card">
     <div class="card-header">
-        {{-- <h4>{{ $title }}</h4> --}}
+        <h4>{{ $title }}</h4>
     </div>
     <div class="card-body">
         <x-errorMessage/>
@@ -23,7 +23,7 @@
                 <div class="col-md-8">
 
                     <div class="md-3 py-2">
-                        <label for="product_name" class="form-label">product Name</label>
+                        <label for="product_name" class="form-label"> <strong>product Name</strong> </label>
                         <input type="text" name="name" class="form-control p-3" id="product_name">
                         @error('name')
                             <span class="text-danger"> {{ $message }}</span>
@@ -31,7 +31,7 @@
                     </div>
 
                     <div class="md-3 py-2">
-                        <label for="product_image" class="form-label">Feature Image</label>
+                        <label for="product_image" class="form-label"> <strong>Feature Image</strong> </label>
                         <input type="file" name="image" class="form-control p-3" id="product_image" >
                         @error('image')
                             <span class="text-danger"> {{ $message }}</span>
@@ -39,7 +39,7 @@
                     </div>
 
                     <div class="md-3 py-2">
-                        <label for="details" class="form-label">Product Details</label>
+                        <label for="details" class="form-label"> <strong>Product Details</strong> </label>
                         <input type="text" name="details" class="form-control p-3" id="details" >
                         @error('details')
                             <span class="text-danger"> {{ $message }}</span>
@@ -47,7 +47,7 @@
                     </div>
 
                     <div class="md-3 py-2">
-                        <label for="price" class="form-label">Price</label>
+                        <label for="price" class="form-label"> <strong>Price</strong> </label>
                         <input type="text" name="price" class="form-control p-3" id="price">
                         @error('price')
                             <span class="text-danger"> {{ $message }}</span>
@@ -55,7 +55,7 @@
                     </div>
 
                     <div class="md-3 py-2">
-                        <label for="author" class="form-label">Author</label>
+                        <label for="author" class="form-label"> <strong>Author</strong> </label>
                         <input type="text" name="author" class="form-control p-3" id="author" >
                         @error('author')
                             <span class="text-danger"> {{ $message }}</span>
@@ -77,8 +77,9 @@
                 </div>
                 <div class="col-md-4">
                     <div class="md-3 py-2">
-                        <label for="brand" class="form-label">Brand</label>
-                        <select name="brand_id" id="brand" class="form-control p-3">
+                        <label for="brand" class="form-label"> <strong>Brand</strong> </label>
+
+                        <select name="brand_id" id="brand" class="form-control">
                             <option value="">Brand Select</option>
                             @forelse ($data['brands'] as $brandItem)
                                 <option value="{{ $brandItem->id }}"> {{ $brandItem->name }} </option>
@@ -94,8 +95,8 @@
                     </div>
 
                     <div class="md-3 py-2">
-                        <label for="category" class="form-label">Category</label>
-                        <select name="category_id" id="category" class="form-control p-3">
+                        <label for="category" class="form-label"> <strong> Category </strong> </label>
+                        <select name="category_id" id="category" class="form-control">
                             <option value="">Category Select</option>
 
                             @forelse ($data['categories'] as $categryItem)
@@ -112,12 +113,12 @@
                     </div>
 
                     <div class="md-3 py-2">
-                        <label for="status" class="form-label">status</label>
+                        <label for="status" class="form-label"> <strong>status</strong> </label>
 
                         <select name="status" id="status" class="form-control">
                             <option value="">Brand Select</option>
-                                <option value="0"> Active </option>
-                                <option value="1"> Pending </option>
+                                <option value="1"> Active </option>
+                                <option value="0"> Pending </option>
                         </select>
 
                         @error('status')

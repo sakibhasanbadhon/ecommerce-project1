@@ -154,7 +154,7 @@
 
         // $(document).on('click', '.deleteBtn', function(){
         //     let row_id = $(this).data('id');
-        //     let url = "{{ route('app.categories.destroy') }}";
+        //     let url = "{{ route('app.products.destroy') }}";
         //     datetable(row_id,url)
         // });
     </script>

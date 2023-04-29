@@ -8,6 +8,7 @@ use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use DataTables;
 
 class ProductController extends Controller
 {
@@ -32,7 +33,10 @@ class ProductController extends Controller
 
      public function getData(Request $request){
         if ($request->ajax()) {
-            $getData = Product::with('brand','category')->orderby('id','desc')->get();
+            $getData = Product::latest('id');
+            // $getData = Category::orderBy('id','desc');
+
+    //         // dd($getData);
 
             return DataTables::eloquent($getData)
                 ->addIndexColumn()
@@ -42,6 +46,11 @@ class ProductController extends Controller
                         <button class="btn-style btn-style-danger deleteBtn" data-id="'.$product->id.'"> <i class="fa fa-trash"></i> </button>
                     ';
                     return $operation;
+                })
+
+                ->addColumn('image', function($product) {
+                    $image = '<img width="80px" height="80px" src="'. asset("backend/assets/img/product/$product->image").'" alt="">';
+                    return $image;
                 })
 
                 ->addColumn('status', function($product){
@@ -61,7 +70,7 @@ class ProductController extends Controller
                 ->addColumn('created_at', function($brands){
                     return date_formats('d-m-Y',$brands->created_at);
                 })
-                ->rawColumns(['operation','status','created_at'])
+                ->rawColumns(['operation','status','created_at','image'])
                 ->make(true);
 
         }
