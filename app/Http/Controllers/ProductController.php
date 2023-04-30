@@ -34,15 +34,12 @@ class ProductController extends Controller
      public function getData(Request $request){
         if ($request->ajax()) {
             $getData = Product::latest('id');
-            // $getData = Category::orderBy('id','desc');
-
-    //         // dd($getData);
 
             return DataTables::eloquent($getData)
                 ->addIndexColumn()
                 ->addColumn('operation', function($product){
                     $operation = '
-                        <a href="" id="editBtn" class="btn-style btn-style-edit"> <i class="fa fa-edit"> </i></a>
+                        <a href="'.route('app.products.edit',$product->id).'" id="editBtn" class="btn-style btn-style-edit"> <i class="fa fa-edit"> </i></a>
                         <button class="btn-style btn-style-danger deleteBtn" data-id="'.$product->id.'"> <i class="fa fa-trash"></i> </button>
                     ';
                     return $operation;
@@ -172,9 +169,11 @@ class ProductController extends Controller
             'categories'=>Category::latest('id')->where('status',1)->get()
         ];
 
+        $breadcrumb =['Dashboard'=>route('app.dashboard'),'Product'=>route('app.products.index'),'Edit'=>''];
         $product = Product::findOrFail($product_id);
+        pageTitle('Product Edit');
 
-        return view('backend.pages.product.edit',['data'=>$data,'product'=>$product]);
+        return view('backend.pages.product.edit',['data'=>$data,'product'=>$product,'breadcrumb'=>$breadcrumb]);
 
     }
 
@@ -194,6 +193,8 @@ class ProductController extends Controller
         if ($request->hasFile('image')) {
             $data['image'] = $this->file_update($request->file('image'),'backend/image/product/',$product->image);
 
+        }else {
+            $product_image_name = $product->image;
         }
 
         $product->update($data);
@@ -211,14 +212,22 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($product_id)
+    public function destroy(Request $request)
     {
-        $product = Product::findOrFail($product_id);
+        if ($request->ajax()) {
+            $product = Product::find($request->row_id);
+            unlink('backend/assets/img/product/'.$product->image);
 
-        $this->file_remove('backend/image/product/',$product->image);
+            if ($product) {
+                $product->delete();
+                $output = ['status'=>'success', 'message'=>'Product has been deleted successfully'];
+            }else {
+                $output = ['status'=>'error','message'=>'Something Wrong!'];
 
-        $product->delete();
+            }
+            return response()->json($output);
 
-        return back()->with('success','Product has been remove.');
+        }
+
     }
 }

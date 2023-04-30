@@ -59,7 +59,7 @@
                 </div>
 
                 <div class="col-sm-4">
-                    <img class="py-5" src="{{ $categories->image != null ? asset('backend/assets/img/category/'.$categories->image)  : 'https://via.placeholder.com/80' }}" alt="">
+                    <img width="300" height="300" class="py-5" src="{{ $categories->image != null ? asset('backend/assets/img/category/'.$categories->image)  : 'https://via.placeholder.com/80' }}" alt="">
                 </div>
 
             </div>
