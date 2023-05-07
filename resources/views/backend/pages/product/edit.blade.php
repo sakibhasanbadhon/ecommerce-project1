@@ -17,8 +17,9 @@
     <div class="card-body">
         <x-errorMessage/>
 
-        <form action="{{ route('app.products.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('app.products.update',$product->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <div class="row">
                 <div class="col-md-8">
 
@@ -119,8 +120,8 @@
 
                         <select name="status" id="status" class="form-control">
                             <option value="">Select Active / pending</option>
-                            <option value="0" {{ $product->status == 1 ? 'selected' : '' }}> Active </option>
-                            <option value="1" {{ $product->status == 0 ? 'selected' : '' }}> Pending </option>
+                            <option value="1" {{ $product->status == 1 ? 'selected' : '' }}> Active </option>
+                            <option value="0" {{ $product->status == 0 ? 'selected' : '' }}> Pending </option>
                         </select>
 
                         @error('status')

@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DataTables;
+use Illuminate\Auth\Events\Validated;
 
 class ProductController extends Controller
 {
@@ -186,18 +187,47 @@ class ProductController extends Controller
      */
     public function update(Request $request,$product_id)
     {
-        $data = $request->except('_token');
-        $data['slug']= Str::slug($request->slug);
+
+        $request->validate([
+            'image'  => 'image|mimes:jpg,jpeg,png',
+        ]);
+
+        // $data = $request->except('_token');
+        // $data['slug']= Str::slug($request->slug);
+
+        // $product = Product::findOrFail($product_id);
+        // if ($request->hasFile('image')) {
+        //     $data['image'] = $this->file_update($request->file('image'),'backend/image/product/',$product->image);
+
+        // }else {
+        //     $product_image_name = $product->image;
+        // }
+
         $product = Product::findOrFail($product_id);
-
-        if ($request->hasFile('image')) {
-            $data['image'] = $this->file_update($request->file('image'),'backend/image/product/',$product->image);
-
-        }else {
-            $product_image_name = $product->image;
+         // image upload
+         if ($request->has('image')) {
+            file_exists('backend/assets/img/product/'.$product->image) ? unlink('backend/assets/img/product/'.$product->image) : false;
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $imageName = uniqid(rand().time()).'.'.$extension;
+            $file->move('backend/assets/img/product/',$imageName);
+        }else{
+            $imageName = $product->image;
         }
 
-        $product->update($data);
+
+        $product->update([
+            'name'        => $request->name,
+            'slug'        => Str::slug($request->name),
+            'image'       => $imageName,
+            'details'     => $request->details,
+            'price'       => $request->price,
+            'author'      => $request->author,
+            'brand_id'    => $request->brand_id,
+            'category_id' => $request->category_id,
+            'status'      => $request->status,
+        ]);
+
 
         return back()->with('success','Brand has been Updated.');
 
