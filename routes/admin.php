@@ -1,11 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserManageController;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Backend\DashboardController;
 
 
@@ -43,6 +44,9 @@ Route::prefix('app')->name('app.')->middleware(['auth','is_verify','Permission',
 
 
 });
+
+
+Auth::routes(['verify' => true]);
 
 
 Route::get('welcome',function(){

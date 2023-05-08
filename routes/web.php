@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\front\HomeController;
 use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -15,9 +16,7 @@ use PHPUnit\TextUI\XmlConfiguration\Group;
 // Route::get('admin', function () {
 //     return view('backend.pages.dashboard');
 // });
-Route::get('/', function () {
-    return view('frontend.pages.home');
-});
+Route::get('/',[HomeController::class, 'heroSection']);
 
 Auth::routes([
     'register'         => false,

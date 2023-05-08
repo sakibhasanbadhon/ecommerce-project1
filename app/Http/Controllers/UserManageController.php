@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\adminMail;
 use DataTables;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Module;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class UserManageController extends Controller
 {
@@ -25,6 +26,7 @@ class UserManageController extends Controller
         $user = User::with('role')->whereNotIn('role_id',[1,3])->get();
         pageTitle('User List');
         $breadcrumb = ['Dashboard'=>route('app.dashboard'), 'User'=>''];
+
         return view('backend.pages.user.index',['users'=>$user,'breadcrumb'=>$breadcrumb]);
     }
 
@@ -50,10 +52,15 @@ class UserManageController extends Controller
                     return $user->role ? $user->role->name : 'N/A';
                 })
 
+
                 ->addColumn('status', function($user){
-                    $status = '
-                        <span class="badge rounded-pill bg-danger">Active</span>
-                    ';
+                    $status = '';
+                    if($user->status == 1){
+                        $status .= '<span class="badge rounded-pill bg-success">Active</span>';
+                    }else{
+                        $status .= ' <span class="badge rounded-pill bg-warning">pending</span>';
+                    }
+
                     return $status;
                 })
 
@@ -111,7 +118,7 @@ class UserManageController extends Controller
             'phone_no'   => $request->phone
         ]);
 
-
+        Mail::to('yoyoyoyo5918@gmail.com')->send(new adminMail);
         return back()->with('success','Brand Has been saved.');
 
 
