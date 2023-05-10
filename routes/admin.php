@@ -31,16 +31,19 @@ Route::prefix('app')->name('app.')->middleware(['auth','is_verify','Permission',
     Route::resource('brands', BrandController::class)->except('show','destroy');
     Route::post('brands/get-data', [BrandController::class, 'getData'])->name('brands.get-data');
     Route::post('brands/destroy', [BrandController::class, 'destroy'])->name('brands.destroy');
+    Route::post('brands/status', [BrandController::class, 'status'])->name('brands.status');
 
     // this is category route
     Route::resource('categories', CategoryController::class)->except('show','destroy');
     Route::post('categories/get-data', [CategoryController::class, 'getData'])->name('categories.get-data');
     Route::post('categories/destroy', [CategoryController::class, 'destroy'])->name('categories.destroy');
+    Route::post('categories/status', [CategoryController::class, 'status'])->name('categories.status');
 
     // this is product route
     Route::resource('products', ProductController::class)->except('show','destroy');
     Route::post('products/get-data', [ProductController::class, 'getData'])->name('products.get-data');
     Route::post('products/destroy', [ProductController::class, 'destroy'])->name('products.destroy');
+    Route::post('products/status', [ProductController::class, 'status'])->name('products.status');
 
 
 });

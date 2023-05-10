@@ -24,6 +24,61 @@
 
     @stack('styles')
     <style>
+        .toggle-switch {
+            position: relative;
+            width: 100px;
+        }
+
+        .switch-label {
+            position: absolute;
+            width: 90%;
+            height: 30px;
+            background-color: red;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+
+        .switch-label input {
+            position: absolute;
+            display: none;
+        }
+
+        .switch_slider {
+            position: absolute;
+            width: 83%;
+            height: 100%;
+            border-radius: 50px;
+            color:white;
+            transition: 0.3s;
+            padding: 2px 0 0 9px;
+        }
+
+        .switch-label input:checked ~ .switch_slider {
+            background-color: green;
+        }
+
+        .switch_slider::before {
+            content: "";
+            position: absolute;
+            top: 1px;
+            left: 3px;
+            width: 30px;
+            height: 28px;
+            border-radius: 50%;
+            box-shadow: inset 0px 0px 0px 0px #d8dbe0;
+            background-color: #f9f8f8;
+            transition: 0.8s;
+        }
+
+        .switch-label input:checked ~ .switch_slider::before {
+            transform: translateX(50px);
+            background-color: 28292c;
+            box-shadow: none;
+        }
+
+
+
+        /* breadcrumb */
         .breadcrumb-nav li{
             display:inline-block;
         }

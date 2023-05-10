@@ -6,6 +6,7 @@ use App\Models\Brand;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use DataTables;
+use GrahamCampbell\ResultType\Success;
 
 class BrandController extends Controller
 {
@@ -47,14 +48,15 @@ class BrandController extends Controller
                 })
 
                 ->addColumn('status', function($brands){
-                    $status ='';
-                    if($brands->status == 1){
-                        $status .= '<span class="badge rounded-pill bg-success">Active</span>';
-                    }
-                    else{
-                        $status .= '<span class="badge rounded-pill bg-danger">Pending</span>';
-                    }
-                    return $status;
+                    $checked = $brands->status == 1 ? 'checked':'' ;
+                    return '<div class = "toggle-switch">
+
+                                <label class="switch-label" for="status'.$brands->id.'">
+                                <input type = "checkbox" name="status" class="input-status" data-id="'.$brands->id.'" id="status'.$brands->id.'"'.$checked.'>
+                                    <span class = "pr-2 text-right switch_slider"> <span style="padding-right:15px">OFF</span> </span>
+                                    <span class = "switch_slider">ON</span>
+                                </label>
+                            </div> ';
                 })
 
 
@@ -115,6 +117,22 @@ class BrandController extends Controller
         return back()->with('success','Brand has been Saved');
     }
 
+
+    /***
+     * status
+    */
+    public function status(Request $request)
+    {
+        if($request->ajax()){
+
+            $status = Brand::find($request->row_id);
+            $status->update([
+                'status' => $request->status_id,
+            ]);
+            $output =['status'=>'success','message'=>'Brand status update successfully'];
+            return response()->json($output);
+        }
+    }
     /**
      * Display the specified resource.
      *

@@ -155,6 +155,33 @@
             let url = "{{ route('app.categories.destroy') }}";
             datetable(row_id,url)
         });
+
+
+                // status
+                $(document).on('click','input.input-status',function(){
+            var row_id = $(this).data('id');
+            var url = "{{ route('app.categories.status') }}"
+            if (this.checked) {
+                var checked = 1;
+            } else {
+                var checked = 0;
+            }
+
+        $.ajax({
+                type:"post",
+                url:url,
+                data:{_token:_token,row_id:row_id,status_id:checked},
+                dataType:'json',
+                success:function(response){
+                if (response.status =='success') {
+                    table.ajax.reload();
+                        $('.alert-message').append('<div class="alert alert-success py-2">'+response.message+'</div>')
+                    }
+
+                }
+            });
+        });
+
     </script>
 
 @endpush

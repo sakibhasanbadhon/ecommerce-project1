@@ -52,14 +52,15 @@ class ProductController extends Controller
                 })
 
                 ->addColumn('status', function($product){
-                    $status ='';
-                    if($product->status == 1){
-                        $status .= '<span class="badge rounded-pill bg-success">Active</span>';
-                    }
-                    else{
-                        $status .= '<span class="badge rounded-pill bg-danger">Pending</span>';
-                    }
-                    return $status;
+                    $checked = $product->status == 1 ? 'checked':'' ;
+                    return '<div class = "toggle-switch">
+
+                                <label class="switch-label" for="status'.$product->id.'">
+                                <input type = "checkbox" name="status" class="input-status" data-id="'.$product->id.'" id="status'.$product->id.'"'.$checked.'>
+                                    <span class = "pr-2 text-right switch_slider"> <span style="padding-right:15px">OFF</span> </span>
+                                    <span class = "switch_slider">ON</span>
+                                </label>
+                            </div> ';
                 })
 
 
@@ -144,6 +145,24 @@ class ProductController extends Controller
 
 
 
+    }
+
+
+
+       /***
+     * status
+    */
+    public function status(Request $request)
+    {
+        if($request->ajax()){
+
+            $status = Product::find($request->row_id);
+            $status->update([
+                'status' => $request->status_id,
+            ]);
+            $output =['status'=>'success','message'=>'Brand status update successfully'];
+            return response()->json($output);
+        }
     }
 
     /**
