@@ -109,7 +109,6 @@ class RoleController extends Controller
     }
 
 
-
     public function destroy(Request $request)
     {
         if ($request->ajax()) {

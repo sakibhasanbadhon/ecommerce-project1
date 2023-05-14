@@ -5,7 +5,7 @@
 @endpush
 
 @section('action')
-    @can('user-create', Auth::user())
+    @can('app.users.create', Auth::user())
         <a href="{{ route('app.users.create') }}" class="btn btn-sm btn-primary">Add New</a>
     @endcan
 @endsection

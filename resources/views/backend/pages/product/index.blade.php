@@ -29,7 +29,6 @@
                                             <th>Image</th>
                                             <th>Product </th>
                                             <th>Author </th>
-                                            <th>Details </th>
                                             <th>Price </th>
                                             <th>Permission</th>
                                             <th>Date</th>
@@ -84,7 +83,6 @@
                 {data: 'image'},
                 {data: 'name'},
                 {data: 'author'},
-                {data: 'details'},
                 {data: 'price'},
                 {data: 'status'},
                 {data: 'created_at'},

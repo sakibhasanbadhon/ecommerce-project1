@@ -22,6 +22,10 @@
     <link href="{{ asset('backend') }}/assets/css/main.min.css" rel="stylesheet" />
     <!-- PAGE LEVEL STYLES-->
 
+    {{-- summernot link --}}
+
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+
     @stack('styles')
     <style>
         .toggle-switch {
@@ -359,6 +363,9 @@
     <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.colVis.min.js"></script>
+
+    {{-- summernote scrit link --}}
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('backend') }}/assets/vendors/popper.js/dist/umd/popper.min.js" type="text/javascript"></script>

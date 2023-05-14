@@ -24,19 +24,19 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerPolicies();
+        // $this->registerPolicies();
 
-        Gate::define('role-create', function($user){
-            if($user->first_name == 'Super'){
-                return true;
-            }
-        });
+        // Gate::define('role-create', function($user){
+        //     if($user->first_name == 'Super'){
+        //         return true;
+        //     }
+        // });
 
-        Gate::define('user-create', function($user){
-            if($user->first_name == 'Super'){
-                return true;
-            }
-        });
+        // Gate::define('user-create', function($user){
+        //     if($user->first_name == 'Super'){
+        //         return true;
+        //     }
+        // });
 
     }
 }

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('slug');
             $table->string('image');
             $table->string('author');
-            $table->string('details');
+            $table->longText('details');
             $table->decimal('price');
             $table->boolean('status')->default(0);
             $table->timestamps();

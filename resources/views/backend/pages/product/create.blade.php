@@ -24,7 +24,7 @@
 
                     <div class="md-3 py-2">
                         <label for="product_name" class="form-label"> <strong>product Name</strong> </label>
-                        <input type="text" name="name" class="form-control p-3" id="product_name">
+                        <input type="text" name="name" class="form-control" id="product_name">
                         @error('name')
                             <span class="text-danger"> {{ $message }}</span>
                         @enderror
@@ -40,7 +40,7 @@
 
                     <div class="md-3 py-2">
                         <label for="details" class="form-label"> <strong>Product Details</strong> </label>
-                        <input type="text" name="details" class="form-control p-3" id="details" >
+                        <textarea class="form-control" name="details" id="summernote" rows="3"></textarea>
                         @error('details')
                             <span class="text-danger"> {{ $message }}</span>
                         @enderror
@@ -48,7 +48,7 @@
 
                     <div class="md-3 py-2">
                         <label for="price" class="form-label"> <strong>Price</strong> </label>
-                        <input type="text" name="price" class="form-control p-3" id="price">
+                        <input type="text" name="price" class="form-control" id="price">
                         @error('price')
                             <span class="text-danger"> {{ $message }}</span>
                         @enderror
@@ -56,11 +56,13 @@
 
                     <div class="md-3 py-2">
                         <label for="author" class="form-label"> <strong>Author</strong> </label>
-                        <input type="text" name="author" class="form-control p-3" id="author" >
+                        <input type="text" name="author" class="form-control" id="author" >
                         @error('author')
                             <span class="text-danger"> {{ $message }}</span>
                         @enderror
                     </div>
+
+
 
 
 
@@ -152,9 +154,9 @@
     <script>
 
 
-        $("#dynamic-ar").click(function(){
-            alert('kam Hoyse')
-        });
+$(document).ready(function() {
+        $('#summernote').summernote();
+    });
 
 
 

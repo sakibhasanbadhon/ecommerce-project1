@@ -101,7 +101,7 @@ class UserManageController extends Controller
             'role_id'    => 'required',
             'first_name' => 'required|',
             'last_name'  => 'required',
-            'email'      => 'required|email|max:50|nullable',
+            'email'      => 'required|email|max:50',
             'password'   => 'required|min:6|max:20|confirmed',
             'phone'      => 'required',
 

@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // j login korbe se dashboard button er access pabe na.
+        // j login korbe se dashboard button er access pabe na. permission na dewa hole
         Blade::if('permission', function($permission){
             return Auth::user()->role->permissions->where('slug',$permission)->first() ? true : false;
         });
